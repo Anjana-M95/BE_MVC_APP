@@ -1,24 +1,25 @@
 const auth = require("../Model/auth");
-
-async function create(req, res) {
+async function signUp(req, res) {
   try {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
 
-    const result = await auth.connectDb(name, email, password);
-    console.log("hvdcg", result);
     if (name === "" || email === "" || password === "") {
-      return res.send({ success: false });
+      return res
+        .status(500)
+        .send({ success: false, msg: "invalid credentials" });
     }
-
+    const result = await auth.signUpModel(name, email, password);
+    console.log("hvdcg", result);
     if (true) {
-      res.send({ success: true });
+      res.status(200).send({ success: true, msg: "valid" });
     }
   } catch (err) {
-    res.status(500).send({ success: false }, "invalid credentials");
+    console.log(err);
+    res.status(500).send({ success: false, msg: "invalid credentials" });
   }
 }
 module.exports = {
-  create,
+  signUp,
 };
