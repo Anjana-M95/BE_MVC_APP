@@ -1,16 +1,13 @@
 const makeDb = require("../Connect/dataBase");
-
-async function connectDb(name, email, password) {
-  const dB = makeDb({
-    host: "localhost",
-    user: "root",
-    password: "password",
-    database: "hospdb",
-  });
+async function signUpModel(name, email, password) {
+  console.log(name, email, password);
+  const dB = makeDb();
   try {
-    var query = "INSERT INTO usershosp(name,email,password) VALUES (?,?,?)";
+    var query = "INSERT INTO usershosp (name,email,password) VALUES (?,?,?)";
+    await dB.query(query, [name, email, password]);
     return true;
   } catch (err) {
+    console.log(err);
     return false;
   } finally {
     await dB.close();
@@ -18,5 +15,5 @@ async function connectDb(name, email, password) {
 }
 
 module.exports = {
-  connectDb,
+  signUpModel,
 };
