@@ -1,8 +1,10 @@
 const express = require("express");
 const auth = require("../Controller/auth");
+const exploreController = require("../Controller/exploreController");
 const loginController = require("../Controller/loginController");
+const { verifyJWT } = require("../middleWare/checkToken");
 const router = express.Router();
-
 router.post("/SignUp", auth.signUp);
 router.post("/login", loginController.login);
+router.post("/details", verifyJWT, exploreController.exploreHome);
 module.exports = router;
