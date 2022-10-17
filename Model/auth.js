@@ -4,7 +4,8 @@ async function signUpModel(name, email, password) {
   const dB = makeDb();
   try {
     var query = "INSERT INTO usershosp (name,email,password) VALUES (?,?,?)";
-    await dB.query(query, [name, email, password]);
+    var data = await dB.query(query, [name, email, password]);
+    console.log(data, "data");
     return true;
   } catch (err) {
     console.log(err);

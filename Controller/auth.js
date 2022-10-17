@@ -1,4 +1,5 @@
 const auth = require("../Model/auth");
+const validation = require("../Model/validation");
 async function signUp(req, res) {
   try {
     const name = req.body.name;
@@ -6,9 +7,17 @@ async function signUp(req, res) {
     const password = req.body.password;
 
     if (name === "" || email === "" || password === "") {
+      return res.status(401).send({
+        success: false,
+        msg: "invalid credentials",
+      });
+    }
+    const user = await validation.validateModel(email);
+    console.log(user, "user");
+    if (user.length > 0) {
       return res
-        .status(500)
-        .send({ success: false, msg: "invalid credentials" });
+        .status(403)
+        .send({ success: false, msg: " email already registered" });
     }
     const result = await auth.signUpModel(name, email, password);
     console.log("hvdcg", result);
@@ -16,7 +25,7 @@ async function signUp(req, res) {
       res.status(200).send({ success: true, msg: "valid" });
     }
   } catch (err) {
-    console.log(err);
+    console.log(err, "rd=================fg");
     res.status(500).send({ success: false, msg: "invalid credentials" });
   }
 }

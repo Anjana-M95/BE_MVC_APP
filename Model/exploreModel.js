@@ -1,9 +1,9 @@
 const makeDb = require("../Connect/dataBase");
-async function explore(title, content) {
+async function explore() {
   const dB = makeDb();
   try {
     var querydata = "SELECT* FROM DETAILS";
-    var exploreMode = await dB.query(querydata, [title, content]);
+    var exploreMode = await dB.query(querydata);
     console.log(exploreMode, "em");
     return exploreMode;
   } catch (err) {

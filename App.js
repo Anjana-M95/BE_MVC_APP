@@ -5,11 +5,13 @@ const cors = require("cors");
 const authRouter = require("./Router/auth");
 
 const app = express();
+app.use(morgan("dev"));
+
 app.use(express.json());
 app.use(cors());
-app.use(morgan("dev"));
+
+app.use("/auth", authRouter);
+
 app.listen("3001", () => {
   console.log("server started on port 3001");
 });
-
-app.use("/auth", authRouter);

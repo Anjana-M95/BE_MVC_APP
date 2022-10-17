@@ -13,19 +13,18 @@ async function login(req, res) {
     }
     const result = await loginModel.loginMode(email, password);
     console.log(result, "v");
-    const jwtSecretKey = process.env.JWT_SECRET_KEY;
-    const token = jwt.sign({ email: email }, jwtSecretKey);
+
     if (result.length !== 0) {
-      res.status(200).send([
-        { auth: true, token: token },
-        { success: true, msg: "valid", result: result[0].password },
-      ]);
+      const jwtSecretKey = process.env.JWT_SECRET_KEY;
+      const token = jwt.sign({ email: email }, jwtSecretKey);
+      console.log(token);
+      res.status(200).send({ token: token, success: true, msg: "valid" });
       console.log(token, "token");
     } else {
-      res.status(200).send([
-        { success: false, msg: "Invalid credentials" },
-        { auth: false, msg: "no token passed" },
-      ]);
+      res.status(200).send(
+        { success: false, msg: "Invalid credentials" }
+        // { auth: false, msg: "no token passed" },
+      );
     }
   } catch (err) {
     console.log(err);
