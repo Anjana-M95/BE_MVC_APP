@@ -6,15 +6,11 @@ async function exploreHome(req, res) {
     const value = await exploreModel.explore();
     console.log(value, "res");
     if (value) {
-      res.status(200).send([
-        {
-          success: true,
-          value: [value],
-        },
-        { auth: true
-         // token: token
-         },
-      ]);
+      res.status(200).send({
+        success: true,
+        value: [value],
+        auth: true, // token: token
+      });
     }
   } catch (err) {
     console.log(err);
