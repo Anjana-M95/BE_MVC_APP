@@ -1,9 +1,12 @@
+// const combine = require("../Model/explore");
+
 const cardsModel = require("../Model/cardsModel");
 async function cardsControl(req, res) {
   const token = req.headers.authorization;
   console.log("controller");
   try {
     const cardsValue = await cardsModel.cardsMode();
+    // const cardsValue = await combine.combineModel();
     console.log(cardsValue, "res");
     if (cardsValue) {
       res.status(200).send({

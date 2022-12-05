@@ -1,15 +1,12 @@
-const exploreModel = require("../Model/exploreModel");
+const editImage = require("../Model/editImage");
 
-async function exploreHome(req, res) {
+async function editRowImage(req, res) {
   console.log("controller");
   try {
-    const value = await exploreModel.explore();
-    // console.log(value, "res");
-    // if (value) {
+    const value = await editImage.editImageRow();
     if (true) {
       res.status(200).send({
         value: value,
-        // auth: true,
       });
     }
   } catch (err) {
@@ -17,15 +14,14 @@ async function exploreHome(req, res) {
     res.status(500).send({ success: false, msg: "Internal server error" });
   }
 }
-async function fetchOneData(req, res) {
+async function EditOneImage(req, res) {
   const id = req.query.id;
   console.log("controller", id);
   try {
-    const value = await exploreModel.ExploreTableOne(id);
+    const value = await editImage.EditImageOne(id);
     console.log(value, "res");
     if (value) {
       res.status(200).send({
-        success: true,
         value: value,
       });
     }
@@ -35,6 +31,6 @@ async function fetchOneData(req, res) {
   }
 }
 module.exports = {
-  exploreHome,
-  fetchOneData,
+  editRowImage,
+  EditOneImage,
 };
