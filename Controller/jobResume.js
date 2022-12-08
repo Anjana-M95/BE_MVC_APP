@@ -6,6 +6,7 @@ async function resumeEntry(req, res) {
   const address = req.body.Address;
   const resume = req.file;
   console.log("jRcontroller");
+  const allowed_file_size = 2;
 
   try {
     if (
@@ -18,6 +19,12 @@ async function resumeEntry(req, res) {
       return res.status(401).send({
         success: false,
         msg: "check if there is input",
+      });
+    }
+    if (resume.size / (1024 * 1024) > allowed_file_size) {
+      return res.status(401).send({
+        success: false,
+        msg: "File size must be less than 2mb",
       });
     }
     const applicants = await jobResume.resumeDataEntry(
