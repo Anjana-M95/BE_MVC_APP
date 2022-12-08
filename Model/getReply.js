@@ -5,7 +5,7 @@ async function allUserReply(id, drid) {
     const result = [];
     const feedbackIdList = "SELECT id FROM FEEDBACKFORM where doctor_id=?";
     const replyList =
-      "SELECT reply.id,reply.name,reply.reply,reply.user_id FROM FEEDBACKFORM inner join reply on feedbackform.id=reply.user_id where feedbackform.doctor_id=? AND feedbackform.id=? Order by reply.id DESC LIMIT 5";
+      "SELECT replyfeedback.id,replyfeedback.name,replyfeedback.reply,replyfeedback.user_id FROM FEEDBACKFORM inner join replyfeedback on feedbackform.id=replyfeedback.user_id where feedbackform.doctor_id=? AND feedbackform.id=? Order by replyfeedback.id DESC LIMIT 5";
     const feedbackLists = await dB.query(feedbackIdList, [drid]);
     console.log(feedbackLists, "feedbackLists");
 

@@ -1,5 +1,5 @@
 const multer = require("multer");
-
+console.log("multer");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads");
@@ -9,5 +9,8 @@ const storage = multer.diskStorage({
   },
 });
 
-const resumeUpload = multer({ storage: storage }).single("resume");
+const resumeUpload = multer(
+  { storage: storage },
+  { limits: { fileSize: 2044 } }
+).single("resume");
 module.exports = resumeUpload;

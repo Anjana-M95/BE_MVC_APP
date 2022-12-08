@@ -3,7 +3,8 @@ async function replyReview(name, reply, id) {
   console.log(name, reply);
   const dB = makeDb();
   try {
-    var replyQuery = "INSERT INTO reply (name,reply,user_id) VALUES (?,?,?)";
+    var replyQuery =
+      "INSERT INTO replyfeedback (name,reply,user_id) VALUES (?,?,?)";
     var replyData = await dB.query(replyQuery, [name, reply, id]);
     console.log(replyData, "reply");
     return replyData;
